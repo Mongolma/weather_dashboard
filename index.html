@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootstrap css -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Weather Dashboard</title>
+  </head>
+  <body>
+    <!-- card head -->
+    <div class="card head">
+      <h1 class="mt-1">Weather Dashborad</h1>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 bg-light" id="searchSection">
+          <h2 class="card-title ml-4 mt-3">Search for a city:</h2>
+          <!-- search input -->
+
+          <div class="input-group mb-4">
+            <input type="text" class="form-control" id="search" />
+            <button class="col-md-2 bg-primary">
+              <i class="fas fa-search" id="searchBtn"></i>
+            </button>
+          </div>
+          <!-- search city list -->
+          <ul class="list-group mb-5" id="cityListSrch"></ul>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="card col-md-12 ml-3 mt-3" id="mainInfo">
+              <h3 class="city mt-4 ml-3" id="city">
+                City <i class="fas fa-cloud"></i>
+              </h3>
+              <p class="paragraph mt-3 ml-3" id="weather">Weather:</p>
+              <p class="paragraph ml-3" id="temp">Temprature:</p>
+              <p class="paragraph ml-3" id="humidity">Humidity:</p>
+              <p class="paragraph ml-3" id="wind">Wind Speed:</p>
+              <p class="paragraph ml-3 mb-5" id="uv">UV index:</p>
+            </div>
+            <div class="col-md-12 row" id="forecast">
+              <h4 class="forecast">5-Day Forecast:</h4>
+              <!-- boxes for forecast -->
+              <div class="fiveBox"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- bootstrap jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <!-- moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

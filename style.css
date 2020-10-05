@@ -1,0 +1,37 @@
+.head {
+  background-color: rgb(72, 103, 112);
+  height: 4rem;
+  color: white;
+  text-align: center;
+}
+.forecast {
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+#searchBtn {
+  color: white;
+  padding-top: 8px;
+}
+.searchBtn i:hover {
+  font-size: 20px;
+  transition: all 0.3s ease-in-out;
+}
+.form-control {
+  height: 40px;
+}
+.list-group-item {
+  height: 50px;
+  width: 300px;
+}
+#fiveBoxCss {
+  width: 130px;
+  height: 170px;
+  border-radius: 6px;
+  background-color: rgb(59, 107, 240);
+  color: aliceblue;
+  text-align: center;
+  padding-top: 8px;
+  display: inline-block;
+  margin: 15px;
+}
