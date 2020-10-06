@@ -31,8 +31,10 @@ $(document).ready(function () {
     $.ajax({
       url: queryUrl2,
       method: "GET",
-    }).then(function (response) {
-      console.log(response);
+      success: function (response) {
+        var uvi = response.value;
+        return uvi;
+      },
     });
   }
 
@@ -57,12 +59,12 @@ $(document).ready(function () {
       var lon = response.city.coord.lon;
       console.log(response.city.coord.lon);
 
-      updateWeather(response);
-      getUVI(lat, lon);
+      // var uVI = getUVI(lat, lon);
+      updateWeather(response, getUVI(lat, lon));
     });
   }
 
-  function updateWeather(response) {
+  function updateWeather(response, uVI) {
     $("#city").html(
       "<h2>" +
         response.city.name +
@@ -92,9 +94,11 @@ $(document).ready(function () {
 
     $("#weather").append(icon);
 
-    $("#temp").html(response.list[0].main.temp + " °F");
-    $("#humidity").html(response.list[0].main.humidity + " %");
-    $("#wind").html(response.list[0].wind.speed + " MPH");
+    $("#temp").html(`Temp: ${response.list[0].main.temp}  °F`);
+    $("#humidity").html(`Humid: ${response.list[0].main.humidity} %`);
+    $("#wind").html(`Wind: ${response.list[0].wind.speed} MPH`);
+    $("#uv").html(`UVI: ${uVI} `);
+
     console.log("line 80 " + response.list[0]);
     //5days forecast boxes
     //clearing it
@@ -113,11 +117,11 @@ $(document).ready(function () {
       var fiveTemp = $("<br><span>");
       fiveTemp.html("Temp: " + response.list[i].main.temp + " °F" + "<br>");
       var fiveHumadity = $("<span>");
-      fiveHumadity.html(
-        "<br>" + "Humidity: " + response.list[i].main.humidity + " %" + "<br>"
-      );
-
-      fiveDiv.append(fiveDate, icon, fiveTemp, fiveHumadity);
+      fiveHumadity.html(`Humidity:  ${response.list[i].main.humidity}  %`);
+      // var fiveUV = $("<span>");
+      // fiveUV.html("<br>" + "UV: " + uVI + "<br>");
+      // console.log(response);
+      fiveDiv.append(fiveDate, icon, fiveTemp, fiveHumadity, fiveUV);
       $(".fiveBox").append(fiveDiv);
 
       var weatherIcon = response.list[0].weather[0].main;
