@@ -9,3 +9,4 @@ https://github.com/Mongolma/weather_dashboard
 https://mongolma.github.io/weather_dashboard/
 
 ## Screenshot
+![756DFF85-F283-45A1-9821-2AE219161E62_1_105_c](https://user-images.githubusercontent.com/61842637/95151427-a44da300-0758-11eb-8a17-54ebf08a2b92.jpeg)
