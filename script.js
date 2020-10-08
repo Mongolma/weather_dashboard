@@ -19,7 +19,9 @@ $(document).ready(function () {
     getWeather(city);
   });
 
+  //Get UVI
   function getUVI(lat, lon) {
+    var uvi = 0;
     var queryUrl2 =
       "https://api.openweathermap.org/data/2.5/uvi?lat=" +
       lat +
@@ -31,11 +33,12 @@ $(document).ready(function () {
     $.ajax({
       url: queryUrl2,
       method: "GET",
+      async: false,
       success: function (response) {
-        var uvi = response.value;
-        return uvi;
+        uvi = response.value;
       },
     });
+    return uvi;
   }
 
   //getting weather from http://api.openweathermap.org
@@ -59,8 +62,8 @@ $(document).ready(function () {
       var lon = response.city.coord.lon;
       console.log(response.city.coord.lon);
 
-      // var uVI = getUVI(lat, lon);
-      updateWeather(response, getUVI(lat, lon));
+      var uVI = getUVI(lat, lon);
+      updateWeather(response, uVI);
     });
   }
 
@@ -73,26 +76,8 @@ $(document).ready(function () {
         ")" +
         "</h2>"
     );
-    $("#weather").html(response.list[0].weather[0].main + "    ");
 
-    var icon = $("<i>");
-    var weatherIcon = response.list[0].weather[0].main;
-
-    console.log(response.list[0].weather[0].main);
-
-    if (weatherIcon === "Clear") {
-      icon.addClass("fas fa-sun");
-    } else if (weatherIcon === "Clouds") {
-      icon.addClass("fas fa-cloud");
-    } else if (weatherIcon === "Snow") {
-      icon.addClass("fas fa-snow");
-    } else if (weatherIcon === "Drizzle") {
-      icon.addClass("fas fa-cloud-drizzle");
-    } else if (weatherIcon === "Rain") {
-      icon.addClass("fas fa-cloud-showers-heavy");
-    }
-
-    $("#weather").append(icon);
+    // $("#weather").append(`${response.list[i].weather[0].icon}`);
 
     $("#temp").html(`Temp: ${response.list[0].main.temp}  °F`);
     $("#humidity").html(`Humid: ${response.list[0].main.humidity} %`);
@@ -105,6 +90,12 @@ $(document).ready(function () {
     $(".fiveBox").empty();
 
     //looping through 5 days data from open weather map & get dates from moment.js
+    var icon1 = $("<img><br>");
+    var firstIcon = response.list[0].weather[0].icon;
+    icon1.attr("src", "http://openweathermap.org/img/w/" + firstIcon + ".png");
+
+    $("#weather").html(icon1);
+
     for (var i = 1; i < 6; i++) {
       var date = moment()
         .add(i + 1, "days")
@@ -113,30 +104,24 @@ $(document).ready(function () {
       var fiveDiv = $("<div id='fiveBoxCss'>");
       var fiveDate = $("<h6>");
       fiveDate.html(date);
-      var icon = $("<br><i><br>");
+      // var icon = $("<br><i><br>");
+      var icon = $("<img><br>");
       var fiveTemp = $("<br><span>");
       fiveTemp.html("Temp: " + response.list[i].main.temp + " °F" + "<br>");
       var fiveHumadity = $("<span>");
       fiveHumadity.html(`Humidity:  ${response.list[i].main.humidity}  %`);
-      // var fiveUV = $("<span>");
-      // fiveUV.html("<br>" + "UV: " + uVI + "<br>");
-      // console.log(response);
+      var fiveUV = $("<span>");
+      fiveUV.html("<br>" + "UV: " + uVI + "<br>");
+      console.log(response);
+
+      var weatherIcon = response.list[i].weather[0].icon;
+      icon.attr(
+        "src",
+        "http://openweathermap.org/img/w/" + weatherIcon + ".png"
+      );
+
       fiveDiv.append(fiveDate, icon, fiveTemp, fiveHumadity, fiveUV);
       $(".fiveBox").append(fiveDiv);
-
-      var weatherIcon = response.list[0].weather[0].main;
-
-      if (weatherIcon === "Clear") {
-        icon.addClass("fas fa-sun");
-      } else if (weatherIcon === "Rain") {
-        icon.addClass("fas fa-cloud-showers-heavy");
-      } else if (weatherIcon === "Snow") {
-        icon.addClass("fas fa-snowflake");
-      } else if (weatherIcon === "Drizzle") {
-        icon.addClass("fas fa-cloud-drizzle");
-      } else if (weatherIcon === "Clouds") {
-        icon.addClass("fas fa-cloud");
-      }
     }
   }
 
@@ -165,7 +150,11 @@ $(document).ready(function () {
       //clearing div from appending all the time
       $("#cityListSrch").empty();
       //creating list for searched cities
-      for (var i = 0; i < cityList.length; i++) {
+      for (
+        var i = cityList.length - 1;
+        i >= 0 && i != cityList.length - 3;
+        i--
+      ) {
         var lists = $("<li>");
         lists.addClass("list-group-item");
         var listItem = $("<p>").text(cityList[i]);
